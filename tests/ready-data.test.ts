@@ -18,7 +18,7 @@ function providerFixture(){
   return {calls,providers};
 }
 
-test("loads all five providers into one normalized Ready context",async()=>{
+test("loads all five providers into one normalized Sunbound context",async()=>{
   const {calls,providers}=providerFixture();
   const context=await loadReadyContext("2026-08-17",providers,demoWeatherLocation);
   assert.deepEqual(calls.sort(),["calendar:2026-08-17","closet","sleep:2026-08-17","tasks:2026-08-17","weather:2026-08-17"]);

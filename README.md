@@ -1,35 +1,48 @@
-# Ready
+# Sunbound
 
-Ready is a context-aware daily preparation assistant. It connects calendar, tasks, weather, closet, sleep context, routines, and reflections to explain what is different today across **Do, Wear, Eat, and Bring**.
+**Sunbound is a context-aware daily preparation assistant that brings together calendar, weather, travel, and personal context to help users understand what they need to do, wear, bring, and prepare for the day ahead.**
+
+**Role:** Maya Cole — Product Designer + Design Engineer
+**Status:** Functional prototype / designed + built
+**Technologies:** React 19, TypeScript, Vinext (Next.js App Router conventions), Vite, Cloudflare Workers, Open-Meteo, optional read-only Google Calendar OAuth, and optional Mapbox routing.
+
+[View Live Prototype ↗](https://ready-palantir-demo.mayafcole.chatgpt.site/?demo=1&reset=1) · [Portfolio Case Study ↗](https://mayacole.design/sunbound)
+
+The public prototype uses a deterministic, credential-free demo. It does not request a recruiter’s calendar or account. The existing hosting URL still contains the former product name; it is retained to preserve the working deployment. See [DEMO.md](./DEMO.md) for the walkthrough and prototype limitations.
 
 ## Run locally
 
-Requires Node.js 22.13 or later.
+Requires Node.js **22.13 or later**.
 
 ```bash
-npm install
+git clone https://github.com/mayafcole-222/Ready-app.git sunbound
+cd sunbound
+npm ci
 cp .env.example .env.local
 npm run dev
 ```
 
-Build and validate with `npm run lint`, `npm run test:engine`, and `npm run build`.
+Open [localhost:3000/?demo=1&reset=1](http://localhost:3000/?demo=1&reset=1) for a fresh demo. No external provider credentials are required. After the GitHub repository is renamed, use `https://github.com/mayafcole-222/sunbound.git` as the clone URL; GitHub normally redirects the former URL.
 
-For the deterministic submission experience, reset the app from Settings or open `/?demo=1&reset=1`. See [DEMO.md](./DEMO.md) for the recording walkthrough, deployment mode, and recovery steps.
+```bash
+npm run lint
+npm test # engine tests followed by the production build
+```
 
 ## Current features
 
 - Seven-step responsive onboarding with local persistence
-- Maya’s realistic Today journey and capacity-aware Ready Brief
+- A seeded Today journey and capacity-aware Daily Brief
 - Completion, dismissal, provenance, and “Why?” reasoning
 - Deterministic Outfit Journey using a 12-item demo closet
-- Full Journey Map and essential-only Ready Check
+- Full Journey Map and essential-only Departure Check
 - Dependency recalculation when Pilates is cancelled
 - Evening reflection, pattern insight, tomorrow preparation and delta
 - Desktop sidebar and purpose-built mobile bottom navigation
 
 ## Architecture
 
-`lib/types.ts` defines product and provider contracts. `lib/providers.ts` selects a provider bundle, while `lib/weather/open-meteo.ts` adapts Open-Meteo into Ready's internal weather model. `lib/engine.ts` is the deterministic dependency engine. `lib/demo-data.ts` holds seeded context and closet items. `components/ready-app.tsx` contains the interactive prototype surfaces. Browser-local preferences and progress use `localStorage`.
+`lib/types.ts` defines product and provider contracts. `lib/providers.ts` selects a provider bundle, while `lib/weather/open-meteo.ts` adapts Open-Meteo into Sunbound's internal weather model. `lib/engine.ts` is the deterministic dependency engine. `lib/demo-data.ts` holds seeded context and closet items. `components/ready-app.tsx` contains the interactive prototype surfaces. Browser-local preferences and progress use `localStorage`.
 
 Tasks, sleep, and closet integrations remain mocked. The repository defaults to submission demo mode, which pins the morning clock and forces deterministic calendar and weather fixtures. Set `NEXT_PUBLIC_READY_RUNTIME_MODE=live` in `.env.local` to use the normal clock and enable optional live providers. Then set `NEXT_PUBLIC_READY_WEATHER_MODE=live` to use Open-Meteo. To use the optional read-only Google Calendar provider, enable the Google Calendar API, create an OAuth web application, authorize `http://localhost:3000/api/auth/google/callback`, and configure:
 
@@ -48,12 +61,16 @@ TRAVEL_PROVIDER=mapbox
 MAPBOX_ACCESS_TOKEN=your-server-side-mapbox-token
 ```
 
-Create the token at **Mapbox Account → Access tokens** (`https://account.mapbox.com/access-tokens/`). Ready uses it only from `/api/travel` to geocode the saved home address and calendar-event location, then request walking, driving, or cycling directions. It is never exposed through a `NEXT_PUBLIC_` variable. Restart the development server after changing `.env.local`. Without it—or for transit—calendar, weather, and preparation continue working and the UI shows “Travel time unavailable.”
+Create the token at **Mapbox Account → Access tokens** (`https://account.mapbox.com/access-tokens/`). Sunbound uses it only from `/api/travel` to geocode the saved home address and calendar-event location, then request walking, driving, or cycling directions. It is never exposed through a `NEXT_PUBLIC_` variable. Restart the development server after changing `.env.local`. Without it—or for transit—calendar, weather, and preparation continue working and the UI shows “Travel time unavailable.”
 
 The previous Google Routes adapter remains available for fallback testing. Set `TRAVEL_PROVIDER=google` and provide `GOOGLE_MAPS_API_KEY` to select it explicitly.
 
-The Google integration requests only `https://www.googleapis.com/auth/calendar.events.readonly` and reads the primary calendar. OAuth exchange, token refresh, and Google API requests run in server routes. Raw Google events are normalized into `CalendarEvent` facts before Ready's vendor-neutral enrichment layer classifies them. Live authorization or API failures never silently fall back to demo events.
+The Google integration requests only `https://www.googleapis.com/auth/calendar.events.readonly` and reads the primary calendar. OAuth exchange, token refresh, and Google API requests run in server routes. Raw Google events are normalized into `CalendarEvent` facts before Sunbound's vendor-neutral enrichment layer classifies them. Live authorization or API failures never silently fall back to demo events.
 
 The local prototype stores its Google token session in an encrypted, authenticated, HttpOnly cookie. Tokens are unavailable to client JavaScript, but production should instead use encrypted server-side storage tied to an authenticated user, with key rotation and revocation controls. Both calendar and weather use the centralized New York demo timezone in `lib/ready-config.ts`.
 
 See `docs/PRODUCT.md` and `docs/ARCHITECTURE.md` for more detail.
+
+## Branding compatibility
+
+Public product copy uses **Sunbound**, **Daily Brief**, and **Departure Check**. Existing `Ready*` code symbols, `ready-*` storage/CSS/cookie keys, filenames, and `NEXT_PUBLIC_READY_*` environment variables intentionally remain compatible. See [branding migration notes](./docs/BRANDING_MIGRATION.md) before changing those contracts.

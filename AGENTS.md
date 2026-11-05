@@ -1,8 +1,8 @@
-# Ready product guardrails
+# Sunbound product guardrails
 
-1. Ready is about dependencies, not habits.
+1. Sunbound is about dependencies, not habits.
 2. Show what is different today.
-3. The user is the hero; Ready is the guide.
+3. The user is the hero; Sunbound is the guide.
 4. Reduce cognitive load instead of adding tasks.
 5. Infer when confidence is high; ask when uncertain.
 6. Explain why every inferred recommendation exists.

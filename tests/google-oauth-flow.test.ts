@@ -29,7 +29,7 @@ test("disconnect clears current and legacy Google Calendar cookies",async()=>{
   assert.ok(cookies.some(cookie=>cookie.startsWith("ready_google_calendar=")));assert.ok(cookies.some(cookie=>cookie.startsWith("ready_google_oauth_state=")&&cookie.includes("Path=/api/auth/google")));assert.ok(cookies.some(cookie=>cookie.startsWith("ready_google_oauth_state=")&&cookie.includes("Path=/;")));assert.ok(cookies.some(cookie=>cookie.startsWith("ready_google_calendar_reconnect=")));assert.ok(cookies.every(cookie=>cookie.includes("Max-Age=0")));
 });
 
-test("development reset clears one cookie per redirect and returns to Ready",async()=>{
+test("development reset clears one cookie per redirect and returns to Sunbound",async()=>{
   const previous=process.env.NODE_ENV;process.env.NODE_ENV="development";
   try{const expected=["ready_google_calendar=","ready_google_oauth_state=","ready_google_oauth_state=","ready_google_calendar_reconnect="];for(let step=0;step<4;step++){const response=await resetGoogleCalendar(new Request(`http://localhost:3000/api/dev/reset-google-calendar?step=${step}`));assert.equal(response.status,303);assert.ok(response.headers.get("set-cookie")?.startsWith(expected[step]));assert.equal(response.headers.get("location"),step===3?"http://localhost:3000/?calendar=reset":`http://localhost:3000/api/dev/reset-google-calendar?step=${step+1}`)}}finally{if(previous===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=previous}
 });

@@ -20,7 +20,7 @@ function eventWindows(events:ReadyEvent[],activeDate:string,timezone:string,now:
 }
 
 function orderErrands(errands:Errand[]):Errand[]{const priority={high:0,normal:1,low:2};return [...errands].filter(errand=>errand.status==="open").sort((a,b)=>Number(!a.completeBy)-Number(!b.completeBy)||(a.completeBy??"").localeCompare(b.completeBy??"")||priority[a.priority]-priority[b.priority]||b.estimatedMinutes-a.estimatedMinutes||a.id.localeCompare(b.id))}
-function reasonFor(window:Window,errand:Errand):string{if(errand.completeBy)return `Gets this done before your ${formatConstraint(errand.completeBy)} deadline.`;if(window.afterEventId&&window.beforeEventId)return "Fits between two fixed commitments.";if(window.beforeEventId)return "You have room before your next commitment.";if(window.afterEventId)return "Your day opens up after your last commitment.";return "Ready found an open window in your day."}
+function reasonFor(window:Window,errand:Errand):string{if(errand.completeBy)return `Gets this done before your ${formatConstraint(errand.completeBy)} deadline.`;if(window.afterEventId&&window.beforeEventId)return "Fits between two fixed commitments.";if(window.beforeEventId)return "You have room before your next commitment.";if(window.afterEventId)return "Your day opens up after your last commitment.";return "Sunbound found an open window in your day."}
 function formatConstraint(value:string){const [hour,minute]=value.split(":").map(Number);return new Intl.DateTimeFormat("en-US",{hour:"numeric",minute:"2-digit",timeZone:"UTC"}).format(new Date(Date.UTC(2020,0,1,hour,minute)))}
 
 export function scheduleErrands(errands:Errand[],events:ReadyEvent[],activeDate:string,timezone:string,rejected:RejectedErrandSlots={},now=new Date()):SuggestedErrandSlot[]{
@@ -32,7 +32,7 @@ export function scheduleErrands(errands:Errand[],events:ReadyEvent[],activeDate:
    const window=windows[index];let start=Math.max(window.start,earliest),end=start+duration;
    while(end<=window.end&&end<=deadline){const candidate={startAt:new Date(start).toISOString(),endAt:new Date(end).toISOString()};if(!(rejected[errand.id]??[]).includes(errandSlotKey(candidate))){placed={errandId:errand.id,...candidate,afterEventId:window.afterEventId,beforeEventId:window.beforeEventId,reason:reasonFor(window,errand),status:"scheduled"};windows.splice(index,1,...(window.start<start?[{...window,end:start}]:[]),...(end<window.end?[{...window,start:end}]:[]));break}start+=minutes(ERRAND_TRANSITION_BUFFER_MINUTES);end=start+duration}
   }
-  results.push(placed??{errandId:errand.id,status:"no-fit",reason:errand.completeBy?`Ready couldn't find a safe window before ${formatConstraint(errand.completeBy)}.`:"Ready couldn't find a safe window in today's fixed schedule."});
+  results.push(placed??{errandId:errand.id,status:"no-fit",reason:errand.completeBy?`Sunbound couldn't find a safe window before ${formatConstraint(errand.completeBy)}.`:"Sunbound couldn't find a safe window in today's fixed schedule."});
  }
  return results;
 }

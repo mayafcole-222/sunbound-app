@@ -1,22 +1,22 @@
-# Ready submission demo
+# Sunbound submission demo
 
-Ready's public submission build runs in a deterministic, credential-free demo mode. It uses the active New York calendar date while pinning Ready's internal morning clock to 8:15 AM, so the same upcoming events, recommendations, errand window, and social context appear whenever the demo is opened.
+Sunbound's public submission build runs in a deterministic, credential-free demo mode. It uses the active New York calendar date while pinning Sunbound's internal morning clock to 8:15 AM, so the same upcoming events, recommendations, errand window, and social context appear whenever the demo is opened.
 
 ## Reset to the recording baseline
 
 Use either reset path:
 
 - Open Settings from the Today page and select **Reset demo**.
-- Open `/?demo=1&reset=1`. Ready consumes the reset parameter, restores the baseline, removes `reset=1` from the address, and lands on Today.
+- Open `/?demo=1&reset=1`. Sunbound consumes the reset parameter, restores the baseline, removes `reset=1` from the address, and lands on Today.
 
-The reset removes only Ready-owned browser keys. It does not clear unrelated browser storage, Google Calendar data, or provider credentials. The baseline starts onboarded with untouched recommendations, one open **Mail package** errand, Jessica's relationship context, and no simulated cancellation.
+The reset removes only Sunbound-owned browser keys. It does not clear unrelated browser storage, Google Calendar data, or provider credentials. The baseline starts onboarded with untouched recommendations, one open **Mail package** errand, Jessica's relationship context, and no simulated cancellation.
 
 ## Three-minute walkthrough
 
-1. Reset, then show the morning rationale, first stop, and Ready Brief on Today.
+1. Reset, then show the morning rationale, first stop, and Daily Brief on Today.
 2. Show the busy journey: Design Studio, Lunch with Jessica, Portfolio Review, Pilates, Walk the Dog, and Wind Down.
 3. Open People Prep for Jessica and show the job, TV finale, and portfolio-review context.
-4. Show where Ready placed **Mail package** around fixed commitments.
+4. Show where Sunbound placed **Mail package** around fixed commitments.
 5. Select **Cancel Pilates** to demonstrate dynamic recomputation and Journey Changes. Reset before recording another take.
 
 ## Run locally

@@ -27,7 +27,7 @@ test("live mode uses the real clock path",()=>withRuntime("live",()=>{
   assert.ok(Math.abs(Date.now()-getReadyNow("2026-08-19","America/New_York").getTime())<1_000);
 }));
 
-test("demo reset clears only Ready keys and restores the canonical baseline",()=>withRuntime("demo",()=>{
+test("demo reset clears only Sunbound keys and restores the canonical baseline",()=>withRuntime("demo",()=>{
   const storage=new MemoryStorage();
   for(const key of READY_STORAGE_KEYS)storage.setItem(key,JSON.stringify({stale:true}));
   storage.setItem("unrelated-key","keep me");

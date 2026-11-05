@@ -2,8 +2,8 @@ import type { InterestEnrichment, InterestEnrichmentProvider } from "../types";
 
 // Intentionally tiny: these are maintained demo facts, not simulated live news.
 export const curatedInterestEnrichments:InterestEnrichment[]=[
- {id:"turtles-magnetic-navigation",topic:"turtles",kind:"fact",text:"Sea turtles can use Earth's magnetic field as part of navigation.",sourceLabel:"Ready curated topic fact"},
- {id:"fashion-pocket-history",topic:"fashion",kind:"fact",text:"Pockets became common in men's clothing before they were routinely built into women's clothing.",sourceLabel:"Ready curated topic fact"},
+ {id:"turtles-magnetic-navigation",topic:"turtles",kind:"fact",text:"Sea turtles can use Earth's magnetic field as part of navigation.",sourceLabel:"Sunbound curated topic fact"},
+ {id:"fashion-pocket-history",topic:"fashion",kind:"fact",text:"Pockets became common in men's clothing before they were routinely built into women's clothing.",sourceLabel:"Sunbound curated topic fact"},
 ];
 
 function normalizeTopic(value:string){return value.trim().toLocaleLowerCase()}

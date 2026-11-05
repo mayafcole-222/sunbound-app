@@ -16,7 +16,7 @@ test("normalizes timed, all-day, missing-location, untitled, cancelled, and recu
   assert.equal(normalizeGoogleEvent({id:"malformed",start:{},end:{}}),null);
 });
 
-test("queries only the Ready local day and paginates primary expanded events",async()=>{
+test("queries only the Sunbound local day and paginates primary expanded events",async()=>{
   const urls:URL[]=[];let calls=0;
   const provider=createGoogleCalendarProvider({timezone:"America/New_York",getAccessToken:async()=>"access-token",fetcher:async(input,init)=>{const url=new URL(String(input));urls.push(url);assert.equal(new Headers(init?.headers).get("authorization"),"Bearer access-token");calls++;return new Response(JSON.stringify(calls===1?{items:[{id:"first",summary:"Portfolio Review",start:{dateTime:"2026-08-17T13:00:00-04:00"},end:{dateTime:"2026-08-17T14:00:00-04:00"}}],nextPageToken:"next"}:{items:[{id:"second",summary:"Dinner",start:{dateTime:"2026-08-17T19:00:00-04:00"},end:{dateTime:"2026-08-17T20:00:00-04:00"}}]}))}});
   const events=await provider.getEvents("2026-08-17");

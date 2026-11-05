@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ready — Your day, prepared",
+  title: "Sunbound — Your day, prepared",
   description: "A context-aware daily preparation assistant.",
   icons: {
     icon: "/favicon.svg",

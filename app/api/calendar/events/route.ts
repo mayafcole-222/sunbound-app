@@ -17,7 +17,7 @@ async function reconnectResponse(request:Request,sessionId:string,secret:string)
 
 export async function GET(request:Request){
   if(process.env.NEXT_PUBLIC_READY_CALENDAR_MODE!=="live")return Response.json({error:"Live Google Calendar mode is not enabled"},{status:404});
-  const date=new URL(request.url).searchParams.get("date");if(!date)return Response.json({error:"A Ready date is required"},{status:400});
+  const date=new URL(request.url).searchParams.get("date");if(!date)return Response.json({error:"A Sunbound date is required"},{status:400});
   let secret:string;try{secret=googleCredentials().clientSecret}catch{return Response.json({error:"Google Calendar OAuth is not configured"},{status:503})}
   const session=await unsealGoogleSession(readGoogleSessionCookie(request),secret);if(!session)return Response.json({status:"disconnected"},{status:401});
   if(session.status==="needs_reconnect")return Response.json({status:"needs_reconnect"},{status:401});

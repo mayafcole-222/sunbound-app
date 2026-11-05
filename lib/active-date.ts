@@ -8,6 +8,6 @@ export function getActiveReadyDate(timezone:string,now=new Date()):string{
 
 export function formatReadyDate(date:string,options:Intl.DateTimeFormatOptions):string{
   const [year,month,day]=date.split("-").map(Number);
-  if(!year||!month||!day)throw new Error(`Invalid Ready date: ${date}`);
+  if(!year||!month||!day)throw new Error(`Invalid Sunbound date: ${date}`);
   return new Intl.DateTimeFormat("en-US",{...options,timeZone:"UTC"}).format(new Date(Date.UTC(year,month-1,day,12)));
 }

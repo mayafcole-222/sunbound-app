@@ -6,7 +6,7 @@ import type { CalendarEvent } from "../lib/types";
 
 function event(overrides:Partial<CalendarEvent>={}):CalendarEvent{return {id:"opaque-google-style-id_abc123",title:"Focus block",startAt:"2026-08-17T09:00:00-04:00",endAt:"2026-08-17T10:00:00-04:00",allDay:false,status:"confirmed",...overrides}}
 
-test("keeps normalized facts and adds deterministic Ready-owned semantics",()=>{
+test("keeps normalized facts and adds deterministic Sunbound-owned semantics",()=>{
   const source=event({title:"Portfolio presentation",description:"Client pitch",location:"Design Center"});
   const enriched=enrichCalendarEvent(source);
   assert.equal(enriched.id,source.id);

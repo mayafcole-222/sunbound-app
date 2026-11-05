@@ -38,7 +38,7 @@ test("requests the active location, date, timezone, Fahrenheit, and required for
   assert.deepEqual(weather,{currentTemp:68,morningTemp:58,eveningTemp:70,highTemp:79,lowTemp:50,uvIndex:6.8,currentCondition:"Partly cloudy",conditionCode:"partly-cloudy",precipitationStart:"5:00 PM",location:query.location});
 });
 
-test("normalizes representative WMO conditions into Ready condition codes",()=>{
+test("normalizes representative WMO conditions into Sunbound condition codes",()=>{
   assert.deepEqual(normalizeWeatherCode(0),{conditionCode:"clear",currentCondition:"Clear"});
   assert.equal(normalizeWeatherCode(2).conditionCode,"partly-cloudy");
   assert.equal(normalizeWeatherCode(3).conditionCode,"cloudy");
