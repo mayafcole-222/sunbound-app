@@ -15,14 +15,14 @@ The public prototype uses a deterministic, credential-free demo. It does not req
 Requires Node.js **22.13 or later**.
 
 ```bash
-git clone https://github.com/mayafcole-222/Ready-app.git sunbound
+git clone https://github.com/mayafcole-222/sunbound-app.git sunbound
 cd sunbound
 npm ci
 cp .env.example .env.local
 npm run dev
 ```
 
-Open [localhost:3000/?demo=1&reset=1](http://localhost:3000/?demo=1&reset=1) for a fresh demo. No external provider credentials are required. After the GitHub repository is renamed, use `https://github.com/mayafcole-222/sunbound.git` as the clone URL; GitHub normally redirects the former URL.
+Open [localhost:3000/?demo=1&reset=1](http://localhost:3000/?demo=1&reset=1) for a fresh demo. No external provider credentials are required.
 
 ```bash
 npm run lint
