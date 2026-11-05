@@ -4,16 +4,14 @@ Public-facing UI, metadata, product documentation, demo instructions, and packag
 
 ## Repository rename
 
-The connected GitHub tool has no repository-administration rename operation. In the existing repository, choose **Settings → General → Repository name**, enter **sunbound**, and click **Rename**. Keep the existing repository and its history.
-
-After the rename:
+The existing repository has been renamed to **sunbound-app**, preserving its repository ID and history.
 
 ```bash
-git remote set-url origin https://github.com/mayafcole-222/sunbound.git
+git remote set-url origin https://github.com/mayafcole-222/sunbound-app.git
 git remote -v
 ```
 
-Update the README clone command to the new URL after GitHub confirms the rename. Review any deployment/source-repository bindings before changing them; `.openai/hosting.json` identifies an existing Sites deployment and must retain its project ID.
+Review deployment/source-repository bindings before changing them; `.openai/hosting.json` identifies an existing Sites deployment and must retain its project ID.
 
 ## Intentionally preserved internal contracts
 
@@ -30,6 +28,6 @@ These are compatibility debt. A later internal rename should include a storage/c
 At the Sunbound hero, add **DESIGNED + BUILT**, and these links with new-tab behavior using the existing portfolio link style:
 
 - **View Live Prototype ↗** → https://ready-palantir-demo.mayafcole.chatgpt.site/?demo=1&reset=1
-- **View on GitHub ↗** → https://github.com/mayafcole-222/sunbound (only after that repository exists)
+- **View on GitHub ↗** → https://github.com/mayafcole-222/sunbound-app
 
 Add **GITHUB** → https://github.com/mayafcole-222 beside the existing footer contact links. Preserve existing navigation, spacing, and responsive breakpoints. Do not publish the Framer portfolio without the owner's request.
